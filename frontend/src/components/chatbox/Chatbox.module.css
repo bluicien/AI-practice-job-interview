@@ -1,0 +1,84 @@
+.chatBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 500px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.jobTitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    width: 100%;
+    column-gap: 10px;
+}
+
+.jobTitle > label {
+    flex: 0; /* Label takes only the width of its content */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.userInputBox {
+    flex: 1; /* Input box fills the remaining space */
+    font-size: 1.5rem;
+    padding: 10px;
+    font-size: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.chatHistory {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.chatMessage {
+    display: flex;
+    column-gap: 5px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.chatMessage > p {
+    padding: 0;
+    margin: 0;
+}
+
+.messageInput {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+.messageInput > button {
+    flex: 0; /* Button takes only the width of its content */
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.messageInput > button:hover {
+    background-color: #0056b3;
+}
+.messageInput > button:active {
+    background-color: #004494;
+}
