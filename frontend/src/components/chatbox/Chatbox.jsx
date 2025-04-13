@@ -17,6 +17,8 @@ function Chatbox() {
         ]
     });  // State to hold the interview history to be be sent to backend
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -41,11 +43,11 @@ function Chatbox() {
             jobTitle: data.jobTitle,
             messageHistory: [
             ...prev.messageHistory,
-            {
-                id: prev.messageHistory.length + 1,
-                name: data.userName,
-                message: data.userReply,
-            },
+                {
+                    id: prev.messageHistory.length + 1,
+                    name: data.userName,
+                    message: data.userReply,
+                },
             ],
         }));
         console.log(data);
@@ -54,10 +56,9 @@ function Chatbox() {
 
     
     useEffect(() => {
-        console.log('interviewHistory', interviewHistory);
         const handleSubmitToBackend = () => {
             
-            fetch('http://localhost:4000/api/interview', {
+            fetch(`${backendUrl}/api/interview`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +67,6 @@ function Chatbox() {
             })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Success:', data);
                 setInterviewHistory(data.message); // Update the interview history with the response from the backend
             })
             .catch((error) => {
@@ -79,6 +79,7 @@ function Chatbox() {
             handleSubmitToBackend();
         }
     }, [interviewHistory]);
+    
     
     return (
         <form onSubmit={handleSubmit} className={styles.chatBox}>

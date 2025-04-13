@@ -11,13 +11,10 @@ async function sendMessageToAi(chatHistory) {
         model: "gemini-2.0-flash",
         contents: prompt,
     });
-    console.log(response)
     return response;
 }
 
 function buildAiPrompt(chatHistory) {
-    console.log("ChatHistory:", chatHistory);
-    
     const nextId = chatHistory.messageHistory.length > 0
     ? chatHistory.messageHistory[chatHistory.messageHistory.length - 1].id + 1 // Get the next message ID
     : 1; // Start from 1 if no messages exist
