@@ -22,7 +22,7 @@ app.use(cors(corsOptions)); // Set CORS options to allow requests from the front
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
-app.get('/api/interview', interview); // Endpoint for interview
+app.post('/api/interview', interview); // Endpoint for interview
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Interview API!'); // Basic welcome message for the root endpoint

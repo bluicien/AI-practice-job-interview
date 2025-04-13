@@ -1,12 +1,21 @@
-import { useState } from 'react';
-import { mockChatHistory } from './mockData.js';
+import { useEffect, useState } from 'react';
+// import { mockChatHistory } from './mockData.js';
 import styles from './Chatbox.module.css';
 
 function Chatbox() {
 
     const [jobTitle, setJobTitle] = useState(''); // State to hold the job title input by the user
     const [userReply, setUserReply] = useState(''); // State to hold the user's reply to display in the chatbox
-    const [interviewHistory, setInterviewHistory] = useState(mockChatHistory);  // State to hold the interview history to be be sent to backend
+    const [interviewHistory, setInterviewHistory] = useState({
+        jobTitle: "",
+        messageHistory: [
+            {
+                id: 1,
+                name: "Interviewer",
+                message: "Tell me about yourself",
+            }
+        ]
+    });  // State to hold the interview history to be be sent to backend
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,6 +38,7 @@ function Chatbox() {
         const data = Object.fromEntries(formData.entries());
         setInterviewHistory((prev) => ({
             ...prev,
+            jobTitle: data.jobTitle,
             messageHistory: [
             ...prev.messageHistory,
             {
@@ -43,6 +53,33 @@ function Chatbox() {
     }
 
     
+    useEffect(() => {
+        console.log('interviewHistory', interviewHistory);
+        const handleSubmitToBackend = () => {
+            
+            fetch('http://localhost:4000/api/interview', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(interviewHistory),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                setInterviewHistory(data.message); // Update the interview history with the response from the backend
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        };
+
+        if (interviewHistory.messageHistory.length > 1 && interviewHistory.messageHistory[interviewHistory.messageHistory.length - 1].name === "User") {
+            // Only call the backend if the last message is from the user and the interview has started
+            handleSubmitToBackend();
+        }
+    }, [interviewHistory]);
+    
     return (
         <form onSubmit={handleSubmit} className={styles.chatBox}>
 
@@ -54,7 +91,8 @@ function Chatbox() {
                     id="jobTitle" 
                     name="jobTitle" 
                     className={styles.userInputBox}
-                    value={jobTitle} 
+                    value={jobTitle}
+                    readOnly={interviewHistory?.messageHistory.length > 1} // Disable input if the interview has started
                     onChange={handleChange} 
                     required 
                 />
