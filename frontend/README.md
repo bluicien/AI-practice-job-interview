@@ -52,4 +52,4 @@ npm run dev
 The app will be available at http://localhost:5173 by default.
 
 ## License
-[Specify your license here]
+MIT
