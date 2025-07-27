@@ -14,10 +14,7 @@ This is the backend server for the Mock Job Interview Application. It provides R
 backend/
 ├── src/            # Source code
 │   ├── controllers/  # Route controllers
-│   ├── models/       # Database models
-│   ├── routes/       # Express routes
-│   ├── services/     # Business logic/services
-│   └── app.js        # Express app entry
+│   └── server.js     # Express app entry
 ├── .env            # Environment variables
 ├── package.json    # Dependencies and scripts
 └── ...
@@ -35,7 +32,6 @@ Create a `.env` file in the `backend/` directory. Example variables:
 ```
 PORT=3000
 MONGODB_URI=<your-mongodb-connection-string>
-JWT_SECRET=<your-jwt-secret>
 ```
 - `PORT`: Port for the server (default: 3000)
 - `MONGODB_URI`: MongoDB connection string
@@ -48,28 +44,11 @@ npm start
 
 ## API Overview
 
-### Authentication
-- `POST /api/auth/register` — Register a new user
-- `POST /api/auth/login` — Login and receive a JWT
-
-### Jobs
-- `GET /api/jobs` — List all jobs
-- `GET /api/jobs/:id` — Get job details
-
-### Applications
-- `POST /api/applications` — Submit a job application
-- `GET /api/applications/:userId` — Get applications for a user
-
 ### Interviews
-- `POST /api/interviews` — Schedule an interview
-- `GET /api/interviews/:userId` — Get interviews for a user
-
-> **Note:** All endpoints requiring authentication expect a JWT in the `Authorization` header.
+- `POST /api/interviews` — Send and receive messages to AI API
 
 ## Services
-- User management
-- Job and application management
-- Interview scheduling
+- Gemini AI Chat 
 
 ## License
-[Specify your license here]
+MIT
